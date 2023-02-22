@@ -9,6 +9,8 @@ git-log
 git status
 ## 添加到缓存区：
 git add
+## 删除文件
+git rm -rf ***.txt
 ## 提交：
 git commit -m "说明"
 ## 历史日志：
@@ -32,6 +34,8 @@ git branch -d branchName
 ## 强制删除分支（不进行检查）：
 git branch -D branchName
 ## 未完全 merge 时可用 -D 强制删除
+## 删除分支后推送到远程
+git push --delete MarkItDown iPad
 ## 重命名分支名称：
 git branch -M main
 ## windows 生成密钥对：
