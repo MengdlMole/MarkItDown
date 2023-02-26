@@ -1,4 +1,14 @@
 # 延迟模型
+
+## 常用缩写
+* ODEs: Ordinary Differential Equations;
+* PDEs: Partial Differential Equations;
+* DDEs: Delay Differential Equations;
+* IDEs: Integral Differential Equations;
+* IEs: Integral Equations;
+* BVPs: Boundary Value Problems;
+* IVPs: Initial Value Problems;  
+  
 ## 基于PDEs的DDEs
 $$
 \begin{cases}
@@ -56,6 +66,7 @@ $$
 
 # 步方法（Step Method）求解延迟系统
 在区间$[t_0+(i-1)\tau, t_0+i\tau], i=1,2,\cdots,N$上依此求解相应的常微分方程。
+
 ## 利用实际算例理解步方法
 考虑如下形式的方程：
 $$
@@ -86,6 +97,7 @@ $$
 *Remark:* 若$t_0 + N\tau \leq T < t_0 + (N+1)\tau$，可采用插值的方法得到$T$时刻的近似值。
 
 # Runge-Kutta方法求解延迟系统
+
 ## 由无延迟到有延迟
 首先要求解的方程：
 $$
@@ -129,7 +141,9 @@ $$
 \end{array},
 \omega=[\omega_0,\omega_1,\cdots,\omega_m]^T.
 $$
+
 ## 一些具体的Runge-Kutta方法
+
 ### 二级二阶Runge-Kutta方法与复合梯形求积公式
 $$
 \begin{array}{c|cc}
@@ -140,6 +154,7 @@ $$
 \end{array},
 \omega=\frac{1}{2}[1,2,2,\cdots,2,1]^T.(m-1个2)
 $$
+
 ### 三级三阶Runge-Kutta方法与复合Gregory求积公式
 $$
 \begin{array}{c|ccc}
@@ -151,6 +166,7 @@ $$
 \end{array},
 \omega=\frac{1}{12}[5,13,12,12,\cdots,12,13,5]^T.(m-3个12)
 $$
+
 ### 四级四阶Runge-Kutta方法与复合Simpson求积公式
 $$
 \begin{array}{c|cccc}
