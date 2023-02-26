@@ -12,10 +12,47 @@ $$
 
 *Hint*：延迟项与时间t及时间t之前相关，称为Volterra型延迟项。  
 
-模型举例：
+## 模型举例
 * 捕食-被捕食模型
 * 环境污染模型
-* 血液生成模型
+* 血液生成模型  
+
+一些捕食-被捕食模型:
+$$
+\begin{cases}
+    x_1^{'}(t)=a\left[1-\frac{x_1(t)}{p}\right]x_1(t)-bx_1(t)x_2(t), & t \in [t_0,T], \\
+    x_2^{'}(t)=-cx_2(t)+dx_1(t)x_2(t), & t \in [t_0,T], \\
+    x_1(t_0)=\phi(t_0),x_2(t_0)=\psi(t_0), & \\
+\end{cases}
+$$
+其中$a,b,c,d,p$均为正常数。  
+
+$$
+\begin{cases}
+    x_1^{'}(t)=a\left[1-\frac{x_1(t)}{p}\right]x_1(t)-\eta(x_1(t))x_2(t), & t \in [t_0,T], \\
+    x_2^{'}(t)=-cx_2(t)+k\eta(x_1(t))x_2(t), & t \in [t_0,T], \\
+    x_1(t_0)=\phi(t_0),x_2(t_0)=\psi(t_0), & \\
+\end{cases}
+$$
+其中$a,b,c,d,p$均为正常数。  
+
+$$
+\begin{cases}
+    x_1^{'}(t)=a\left[1-\frac{x_1(t)}{p}\right]x_1(t)-\eta(x_1(t))x_2(t), & t \in [t_0,T], \\
+    x_2^{'}(t)=-cx_2(t)+k\eta(x_1(t-\tau))x_2(t-\tau), & t \in [t_0,T], \\
+    x_1(t)=\phi(t),x_2(t)=\psi(t), & t \in [t_0-\tau,t_0],\\
+\end{cases}
+$$
+其中$a,b,c,d,p$均为正常数。  
+
+$$
+\begin{cases}
+    x_1^{'}(t)=\left[\alpha_1-\beta_1x_2(t)-\int_{t-\tau}^tg_1(\theta-t)x_2(\theta)d\theta\right]x_1(t), & t \in [t_0,T], \\
+    x_2^{'}(t)=\left[-\alpha_2+\beta_2x_1(t)+\int_{t-\tau}^tg_2(\theta-t)x_1(\theta)x_1(\theta)d\theta\right]x_2(t), & t \in [t_0,T], \\
+    x_1(t)=\phi(t),x_2(t)=\psi(t), & t \in [t_0-\tau,t_0],\\
+\end{cases}
+$$
+其中$\alpha_i,\beta_i$均为非负常数，$g_i(\theta)\geq0$$(i=1,2;\theta\in [t_0-\tau,T]$。  
 
 # 步方法（Step Method）求解延迟系统
 在区间$[t_0+(i-1)\tau, t_0+i\tau], i=1,2,\cdots,N$上依此求解相应的常微分方程。
@@ -128,3 +165,47 @@ $$
 $$
 
 # 有限差分法求解延迟系统
+本部分考虑如下延迟系统：
+$$
+\begin{cases}
+    u_t=au_{xx}+f(t,u(x,t),u(x,t-\tau)), & x \in [0,l], t \in [0,T], \\
+    u(0,t)=\phi_1(t),u(l,t)=\phi_2(t), & t \geq 0, \\
+    u(x,t)=\psi(x,t), & x \in [0,l], t \in [-\tau,0]. \\
+\end{cases}
+$$
+对以上系统构造有限差分格式。取空间步长$h_s=l/N$，时间步长$h_t=\tau/m$，其中$N,m$均为正整数，并且设$Mh_t=T$。用两簇平行直线 
+$$x_i=ih_s,i=0,1,\cdots,N,$$
+$$t_n=nh_t,n=-m,-m+1,\cdots,0,1,\cdots,M,$$
+将区域$D=[0,l]\times [-\tau,T]$剖分称矩形网格，并记$u_i^n\approx u(x_i,t_n)$。在时间上使用向前差分格式
+$$\frac{\partial u(x_i,t_{n+1})}{\partial t}\approx \frac{u_i^{n+1}-u_i^n}{h_t},$$
+在空间上使用中心差分格式
+$$\frac{\partial^2 u(x_i,t_{n+1})}{\partial x^2} \approx \frac{u_{i+1}^{n+1}-2u_i^{n+1}+u_{i-1}^{n+1}}{h_s^2}.$$
+得到原方程的近似格式
+$$
+\frac{u_i^{n+1}-u_i^n}{h_t} = a\left(\frac{u_{i+1}^{n+1}-2u_i^{n+1}+u_{i-1}^{n+1}}{h_s^2}\right)+f(t_{n+1},u_i^{n+1},u_i^{n+1-m}),
+$$
+记
+$$
+A=\frac{a}{h_s^2}\left[
+    \begin{matrix}
+        -2 & 1 & \cdots & 0 & 0 \\
+        1 & -2 & \cdots & 0 & 0 \\
+        \vdots & \vdots & \cdots & \vdots & \vdots \\
+        0 & 0 & \cdots & -2 & 1 \\
+        0 & 0 & \cdots & 1 & -2 \\
+    \end{matrix}
+\right]\in \mathbb{R}^{(N-1)\times(N-1)},
+U_n=\left[
+    \begin{matrix}
+        u_1^n \\
+        u_2^n \\
+        \vdots \\
+        u_{N-1}^n \\
+    \end{matrix}
+\right],
+$$
+$$F(t_{n+1},U_{n+1},U_{n+1-m})=\left[f(t_{n+1},u_1^{n+1},u_1^{n+1-m}),\cdots,f(t_{n+1},u_{N-1}^{n+1},u_{N-1}^{n+1-m})\right]^T,
+$$
+则计算格式可写为
+$$(I-h_tA)U_{n+1}-h_tF(t_{n+1},U_{n+1},U_{n+1-m})-U_n=0.$$
+该计算格式可以采用Newton迭代法求解。
