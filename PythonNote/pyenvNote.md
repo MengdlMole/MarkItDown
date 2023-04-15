@@ -7,3 +7,4 @@
 6. pyenv rehash
 7. pyenv uninstall 3.7.9
 8. pyenv global 3.6.5 2.7.14
+9. pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple

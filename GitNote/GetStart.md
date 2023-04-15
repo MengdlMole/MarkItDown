@@ -4,7 +4,12 @@ Hello Git!
 git init
 ## 查看日志：
 git log
-git-log
+### 配置别名 git-log
+touch ~/.bashrc
+vim ~/.bashrc
+alias git-log='git log --pretty=oneline --all --graph --abbrev-commit'
+alias ll='ls -al'
+source ~/.bashrc
 ## 查看状态：
 git status
 ## 添加到缓存区：
