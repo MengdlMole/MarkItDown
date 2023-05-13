@@ -16,6 +16,7 @@ git status
 git add
 ## 删除文件
 git rm -rf ***.txt
+Hint: 不要rm -rf * !!!
 ## 提交：
 git commit -m "说明"
 ## 历史日志：
